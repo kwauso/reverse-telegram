@@ -48,13 +48,18 @@ async function handleCreate() {
     } catch (e) {
         console.log(e);
     }
-    
+
     console.log('end');
 }
 
 // 読み込み
 async function read() {
     try {
+        var key = document.getElementById('create-name');
+        key.value = "";
+        var value = document.getElementById('create-message');
+        value.value = "";
+
         let keys = await contract.methods.getKeys().call();
         console.log(keys);
 
@@ -65,7 +70,7 @@ async function read() {
             const key = keys[i];
             let value = await contract.methods.read(key).call();
             const li = document.createElement('li');
-            li.innerText = `${key}: ${value.value} (${value.writer})`
+            li.innerText = `No.${i} ${key}: ${value.value} `
             valuesElement.appendChild(li);
         }
     } catch (e) {
