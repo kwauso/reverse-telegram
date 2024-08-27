@@ -77,11 +77,14 @@ async function read() {
         for (let i = 0; i<messages.length; i++) {
             const li = document.createElement('li');
             const bt = document.createElement('button');
+            const nbt = document.createElement('button');
             li.innerText = `${i+1} 名前: ${messages[i][0]}: ${messages[i][2]}\n> ${messages[i][1]}`;
             bt.innerText = "✅";
+            nbt.innerText = "☑️";
             bt.onclick = send();
             valuesElement.appendChild(li);
             valuesElement.appendChild(bt);
+            valuesElement.appendChild(nbt);
         }
         clearN = messages.length
 
