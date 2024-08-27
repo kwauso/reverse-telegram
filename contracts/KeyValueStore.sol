@@ -67,6 +67,13 @@ contract Messages {
 
         return result;
     }
+
+    function delall() public {
+        for (uint i = 0; i < messages.length; i++) {
+            MessageList[messages[i]].exists = false;
+            emit DeleteEvent(messages[i]);
+        }
+    }
 }
 
 event WroteEvent(string indexed key, Value val);

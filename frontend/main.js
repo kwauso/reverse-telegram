@@ -8,6 +8,10 @@ var contract = undefined;
 
 
 var defaultAccount = null;
+
+const messages = [];
+const times = [];
+let clearN = 0;
 // Walletに接続
 async function connectWallet() {
     try {
@@ -24,7 +28,7 @@ async function connectWallet() {
 
         window.alert("Walletに接続済み");
     } catch (e) {
-        console.log('Failed to connect wallet', e);
+        console.log('Failed to connect a wallet', e);
     }
 }
 
@@ -45,6 +49,10 @@ async function handleCreate() {
             from: defaultAccount,
             gas: 300000,
         }, latestBlockNumber);
+        let date = new Date(2010, 2, 11, 11, 24, 30, 776);
+        let now = new Date();
+        messages.push([key, value,now]);
+
     } catch (e) {
         console.log(e);
     }
@@ -55,7 +63,7 @@ async function handleCreate() {
 // 読み込み
 async function read() {
     try {
-        var key = document.getElementById('create-name');
+        let key = document.getElementById('create-name');
         key.value = "";
         var value = document.getElementById('create-message');
         value.value = "";
@@ -66,13 +74,26 @@ async function read() {
         const valuesElement = document.getElementById('values');
         valuesElement.innerHTML = '';
 
-        for (let i = 0; i < keys.length; i++) {
-            const key = keys[i];
-            let value = await contract.methods.read(key).call();
+        for (let i = 0; i<messages.length; i++) {
             const li = document.createElement('li');
-            li.innerText = `No.${i} ${key}: ${value.value} `
+            li.innerText = `${i+1} 名前: ${messages[i][0]}: ${messages[i][2]}\n> ${messages[i][1]}`;
             valuesElement.appendChild(li);
         }
+        clearN = messages.length
+
+    } catch (e) {
+        console.log(e);
+        window.alert("エラー");
+    }
+}
+
+//画面クリア
+async function delall() {
+    try {
+        clearN = messages.length
+        messages.length = 0;
+        this.read();
+
     } catch (e) {
         console.log(e);
         window.alert("エラー");
