@@ -11,7 +11,7 @@ describe("KeyValueStore_Test", function () {
     it("write test", async function () {
         const [owner, _] = await hre.ethers.getSigners();
 
-        const kvs = await hre.ethers.deployContract("SampleKVS");
+        const kvs = await hre.ethers.deployContract("Messages");
         const expectedKey = "hoge";
         const expectedValue = "fuga";
         await kvs.write(expectedKey, expectedValue);
@@ -25,7 +25,7 @@ describe("KeyValueStore_Test", function () {
     });
 
     it("delete test", async function () {
-        const kvs = await hre.ethers.deployContract("SampleKVS");
+        const kvs = await hre.ethers.deployContract("Messages");
         const expectedKey = "hoge";
         const expectedValue = "fuga";
         await kvs.write(expectedKey, expectedValue);
@@ -35,7 +35,7 @@ describe("KeyValueStore_Test", function () {
 
     it("delete test without permission", async function () {
         const [owner, otherAccount] = await hre.ethers.getSigners();
-        const kvs = await hre.ethers.deployContract("SampleKVS");
+        const kvs = await hre.ethers.deployContract("Messages");
 
         const expectedKey = "hoge";
         const expectedValue = "fuga";

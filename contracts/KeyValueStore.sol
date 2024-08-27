@@ -11,56 +11,56 @@ struct Value {
     bool exists;
 }
 
-contract SampleKVS {
+contract Messages {
     //mapping型
-    mapping (string=>Value) kvs;
+    mapping (string=>Value) MessageList; //kvs
     //固定サイズを持たないstring型配列
-    string[] keys;
+    string[] messages; //keys
 
     constructor() {
         // 何もしない
     }
 
-    function write(string memory key, string memory value) public {
-        if (kvs[key].exists) {
+    function write(string memory message, string memory value) public {
+        if (MessageList[message].exists) {
             //require文：制約
             //第一引数：偽だと処理が止まる
             //第二引数：その場合のエラーメッセージ
-            require(kvs[key].writer == msg.sender, "No permission");
+            require(MessageList[message].writer == msg.sender, "No permission");
         }
 
-        kvs[key] = Value(msg.sender, value, true);
-        keys.push(key);
-        emit WroteEvent(key, kvs[key]);
+        MessageList[message] = Value(msg.sender, value, true);
+        messages.push(message);
+        emit WroteEvent(message, MessageList[message]);
     }
 
-    function read(string memory key) view public returns (Value memory) {
-        Value memory result = kvs[key];
+    function read(string memory message) view public returns (Value memory) {
+        Value memory result = MessageList[message];
         require(result.exists, "Doesn't exists");
         return result;
     }
 
-    function del(string memory key) public {
-        require(kvs[key].exists, "Doesn't exist");
-        require(kvs[key].writer == msg.sender, "No permission");
+    function del(string memory message) public {
+        require(MessageList[message].exists, "Doesn't exist");
+        require(MessageList[message].writer == msg.sender, "No permission");
 
-        kvs[key].exists = false;
-        emit DeleteEvent(key);
+        MessageList[message].exists = false;
+        emit DeleteEvent(message);
     }
 
     function getKeys() view public returns (string[] memory) {
         uint count = 0;
-        for (uint i = 0; i < keys.length; i++) {
-            if (kvs[keys[i]].exists) {
+        for (uint i = 0; i < messages.length; i++) {
+            if (MessageList[messages[i]].exists) {
                 count++;
             }
         }
         string[] memory result = new string[](count);
 
         uint index = 0;
-        for (uint i = 0; i < keys.length; i++) {
-            if (kvs[keys[i]].exists) {
-                result[index] = keys[i];
+        for (uint i = 0; i < messages.length; i++) {
+            if (MessageList[messages[i]].exists) {
+                result[index] = messages[i];
                 index++;
             }
         }

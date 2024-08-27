@@ -1,8 +1,8 @@
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 
-const SampleKVSModule = buildModule("SampleKVSModule", (m) => {
-    const skvs = m.contract("SampleKVS");
-    return {skvs};
+const MessageModule = buildModule("SampleKVSModule", (m) => {
+    const smessages = m.contract("Messages");
+    return {smessages};
 });
 
-export default SampleKVSModule
+export default MessageModule
