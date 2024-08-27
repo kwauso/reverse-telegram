@@ -76,8 +76,12 @@ async function read() {
 
         for (let i = 0; i<messages.length; i++) {
             const li = document.createElement('li');
+            const bt = document.createElement('button');
             li.innerText = `${i+1} 名前: ${messages[i][0]}: ${messages[i][2]}\n> ${messages[i][1]}`;
+            bt.innerText = "✅";
+            bt.onclick = send();
             valuesElement.appendChild(li);
+            valuesElement.appendChild(bt);
         }
         clearN = messages.length
 
@@ -97,5 +101,13 @@ async function delall() {
     } catch (e) {
         console.log(e);
         window.alert("エラー");
+    }
+}
+
+async function send() {
+    try {
+        console.log("Sending...");
+    } catch (err) {
+        console.error(err);
     }
 }

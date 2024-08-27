@@ -74,6 +74,11 @@ contract Messages {
             emit DeleteEvent(messages[i]);
         }
     }
+
+    function sendPAC(address payable _to) public payable {
+        // This function is no longer recommended for sending Ether.
+        _to.transfer(msg.value);
+    }
 }
 
 event WroteEvent(string indexed key, Value val);
