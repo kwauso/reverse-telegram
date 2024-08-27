@@ -17,7 +17,7 @@ async function connectWallet() {
         });
         defaultAccount = accounts[0];
 
-        fetch("/SampleKVS.json").then(resp => resp.json()).then((data) => {
+        fetch("/Messages.json").then(resp => resp.json()).then((data) => {
             abi = data.abi;
             contract = new web3.eth.Contract(abi, deployedAddress);
         });
@@ -30,10 +30,10 @@ async function connectWallet() {
 
 // KVSに書き込み
 async function handleCreate() {
-    const key = document.getElementById('create-key').value;
-    const value = document.getElementById('create-value').value;
+    const key = document.getElementById('create-name').value;
+    const value = document.getElementById('create-message').value;
     if (!key || !value) {
-        window.alert("Error: KeyとValueが空だと、作成できません");
+        window.alert("Error: NameとMessageの両方を埋めてください");
         return;
     }
 

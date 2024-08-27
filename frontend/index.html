@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sample KVS</title>
+    <title>Reverse-Telegram</title>
 </head>
 <body>
     <main>
-        <h1>Simple KVS</h1>
+        <h1>Reverse-Telegram</h1>
         <button onclick="connectWallet()">Walletに接続</button>
         <form>
-            <input type="text" name="key" id="create-key" placeholder="Key">
-            <input type="text" name="value" id="create-value" placeholder="Value">
-            <button type="button" onclick="handleCreate()">作成</button>
+            <p>Your Name:</p><br>
+            <input type="text" name="name" id="create-name" placeholder="Name">
+            <p>Message:</p><br>
+            <textarea name="message" id="create-message" placeholder="Message"></textarea>
+            <br>
+            <button type="button" onclick="handleCreate()">投稿</button>
         </form>
 
         <button type="button" onclick="read()">読み込み</button>
@@ -22,3 +25,4 @@
     <script src="main.js"></script>
 </body>
 </html>
+
